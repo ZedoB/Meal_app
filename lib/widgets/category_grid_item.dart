@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:meal/screens/meals_screen.dart';
-import 'package:meal/data/dummy_data.dart';
 import '../models/category.dart';
 import '../models/meal.dart';
 
