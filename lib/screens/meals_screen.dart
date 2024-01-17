@@ -5,11 +5,10 @@ import 'package:meal/widgets/meal_item.dart';
 import '../models/meal.dart';
 
 class MealsScreen extends StatelessWidget {
-  const MealsScreen({super.key, this.title, required this.meals, required this.onSelectFav});
+  const MealsScreen({super.key, this.title, required this.meals});
 
   final String? title;
   final List<Meal> meals;
-  final void Function(Meal meal) onSelectFav;
 
 
   @override
@@ -29,8 +28,7 @@ class MealsScreen extends StatelessWidget {
           complex: meal.complexity, affordable: meal.affordability,
         onSelectMeal: (Meal meal){
           Navigator.of(context).push(
-              MaterialPageRoute(builder: (ctx) => MealDetailScreen(meal: meal,
-                onSelectFav: onSelectFav,)));
+              MaterialPageRoute(builder: (ctx) => MealDetailScreen(meal: meal)));
         },)).toList(),
       ),
     );

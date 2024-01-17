@@ -5,9 +5,8 @@ import 'package:meal/widgets/category_grid_item.dart';
 import '../models/meal.dart';
 
 class CategoriesScreen extends StatelessWidget {
-  const CategoriesScreen({super.key, required this.onSelectFav, required this.availableMeal});
+  const CategoriesScreen({super.key, required this.availableMeal});
 
-  final void Function(Meal meal) onSelectFav;
   final List<Meal> availableMeal;
 
   @override
@@ -20,8 +19,7 @@ class CategoriesScreen extends StatelessWidget {
           ),
         children: [
           for(final category in availableCategories)
-            CategoryGridItem(category: category, onSelectFav: onSelectFav,
-            availableMeal: availableMeal,)
+            CategoryGridItem(category: category, availableMeal: availableMeal,)
         ]
     );
   }

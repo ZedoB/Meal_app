@@ -1,59 +1,31 @@
 import 'package:flutter/material.dart';
-import 'package:meal/data/dummy_data.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:meal/providers/filters_provider.dart';
 import 'package:meal/screens/categories_screen.dart';
 import 'package:meal/screens/filters_screen.dart';
 import 'package:meal/screens/meals_screen.dart';
 import '../models/meal.dart';
+import '../providers/favourites_provider.dart';
 import '../widgets/main_drawer.dart';
 
-const kInitialFilter = {
-  Filter.glutenFree: false,
-  Filter.lactoseFree: false,
-  Filter.vegan: false,
-  Filter.vegetarian: false,
-};
 
-class TabsScreen extends StatefulWidget {
+
+class TabsScreen extends ConsumerStatefulWidget {
   const TabsScreen({super.key});
 
   @override
-  State<TabsScreen> createState() => _TabsScreenState();
+  ConsumerState<TabsScreen> createState() => _TabsScreenState();
 }
 
-class _TabsScreenState extends State<TabsScreen> {
+class _TabsScreenState extends ConsumerState<TabsScreen> {
 
   int _selectedPageIndex = 0;
-  final List<Meal> _favMeal = [];
-  Map<Filter,bool> _selectedFilter = kInitialFilter;
-
-  void _showInfoMsg(String msg){
-    ScaffoldMessenger.of(context).clearSnackBars();
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(msg)));
-  }
 
   void _setScreen(String id){
     if(id == 'filter'){
       Navigator.of(context).pop();
       Navigator.push(
-          context, MaterialPageRoute(builder: (ctx) => FiltersScreen(
-        currentFilter: _selectedFilter
-      ))).then((value) => setState(()=>_selectedFilter = value ?? kInitialFilter));
-    }
-  }
-
-  void _favStatusToggle(Meal meal){
-    final isExist = _favMeal.contains(meal);
-    if(isExist) {
-      setState(() {
-        _favMeal.remove(meal);
-      });
-      _showInfoMsg("Deleted");
-    }
-    else {
-      setState(() {
-          _favMeal.add(meal);
-        });
-      _showInfoMsg("Added");
+          context, MaterialPageRoute(builder: (ctx) => const FiltersScreen()));
     }
   }
 
@@ -65,27 +37,13 @@ class _TabsScreenState extends State<TabsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final availableMeals = ref.watch(filteredMealProvider);
 
-    final availableMeals = dummyMeals.where((meal){
-      if(_selectedFilter[Filter.glutenFree]! && !meal.isGlutenFree) {
-        return false;
-      }
-      if(_selectedFilter[Filter.lactoseFree]! && !meal.isLactoseFree) {
-        return false;
-      }
-      if(_selectedFilter[Filter.vegan]! && !meal.isVegan) {
-        return false;
-      }
-      if(_selectedFilter[Filter.vegetarian]! && !meal.isVegetarian) {
-        return false;
-      }
-      return true;
-    }).toList();
-
-    Widget activePage = CategoriesScreen(onSelectFav: _favStatusToggle, availableMeal: availableMeals);
+    Widget activePage = CategoriesScreen(availableMeal: availableMeals);
     var activePageTitle = 'Categories';
     if(_selectedPageIndex == 1){
-      activePage = MealsScreen(meals: _favMeal, onSelectFav: _favStatusToggle,);
+      final List<Meal> favMeal = ref.watch(favouritesProvider);
+      activePage = MealsScreen(meals: favMeal);
       activePageTitle = 'Favourites';
     }
 

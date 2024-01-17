@@ -7,11 +7,9 @@ class CategoryGridItem extends StatelessWidget {
   const CategoryGridItem({
     super.key,
     required this.category,
-    required this.onSelectFav,
     required this.availableMeal});
 
   final Category category;
-  final void Function(Meal meal) onSelectFav;
   final List<Meal> availableMeal;
 
 
@@ -25,8 +23,7 @@ class CategoryGridItem extends StatelessWidget {
           ).toList();
           Navigator.of(context).push(MaterialPageRoute(
               builder: (ctx) => MealsScreen(
-                title: category.title, meals: filteredMeal, onSelectFav: onSelectFav,
-              )
+                title: category.title, meals: filteredMeal)
           ));
         },
         splashColor: Colors.white,
