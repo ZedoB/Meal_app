@@ -48,55 +48,54 @@ class MealItem extends StatelessWidget {
         onTap: () => onSelectMeal(meal),
         child: Stack(
           children: [
-            FadeInImage(placeholder: MemoryImage(kTransparentImage),
-                image: NetworkImage(meal.imageUrl)),
-            Positioned(
-              bottom: 0, right: 0, left: 0,
-              child: Container(
-                padding: const EdgeInsets.symmetric(vertical: 6,horizontal: 44),
-                color: Colors.black54,
-                child: Column(
-                  children: [
-                    Text(meal.title,
-                      textAlign: TextAlign.center, maxLines: 2,
-                      softWrap: true, overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                        fontSize: 24,color: Colors.white, fontWeight: FontWeight.bold,),),
-                    const SizedBox(height: 12,),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Row(
-                          children: [
-                            const Icon(Icons.schedule,color: Colors.white,),
-                            const SizedBox(width: 6,),
-                            Text('${meal.duration} min',style: const TextStyle(
+            Center(
+              child: FadeInImage(placeholder: MemoryImage(kTransparentImage),
+                  image: NetworkImage(meal.imageUrl)),
+            ),
+            Container(
+              padding: const EdgeInsets.symmetric(vertical: 6,horizontal: 44),
+              color: Colors.black54,
+              child: Column(
+                children: [
+                  Text(meal.title,
+                    textAlign: TextAlign.center, maxLines: 2,
+                    softWrap: true, overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(
+                      fontSize: 24,color: Colors.white, fontWeight: FontWeight.bold,),),
+                  const SizedBox(height: 12,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Row(
+                        children: [
+                          const Icon(Icons.schedule,color: Colors.white,),
+                          const SizedBox(width: 6,),
+                          Text('${meal.duration} min',style: const TextStyle(
+                            color: Colors.white
+                          ),)
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          const Icon(Icons.work,color: Colors.white),
+                          const SizedBox(width: 6,),
+                          Text(complexityText,style: const TextStyle(
                               color: Colors.white
-                            ),)
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            const Icon(Icons.work,color: Colors.white),
-                            const SizedBox(width: 6,),
-                            Text(complexityText,style: const TextStyle(
-                                color: Colors.white
-                            ),)
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            const Icon(Icons.monetization_on_outlined,color: Colors.white),
-                            const SizedBox(width: 6,),
-                            Text(afford,style: const TextStyle(
-                                color: Colors.white
-                            ),)
-                          ],
-                        )
-                      ],
-                    )
-                  ],
-                ),
+                          ),)
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          const Icon(Icons.monetization_on_outlined,color: Colors.white),
+                          const SizedBox(width: 6,),
+                          Text(afford,style: const TextStyle(
+                              color: Colors.white
+                          ),)
+                        ],
+                      )
+                    ],
+                  )
+                ],
               ),
             )
           ],

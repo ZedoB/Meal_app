@@ -23,13 +23,16 @@ class MealsScreen extends StatelessWidget {
 
   SingleChildScrollView content(BuildContext context) {
     return SingleChildScrollView(
-      child: Column(
-        children: meals.map((meal) => MealItem(meal: meal,
-          complex: meal.complexity, affordable: meal.affordability,
-        onSelectMeal: (Meal meal){
-          Navigator.of(context).push(
-              MaterialPageRoute(builder: (ctx) => MealDetailScreen(meal: meal)));
-        },)).toList(),
+      child: Expanded(
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          children: meals.map((meal) => MealItem(meal: meal,
+            complex: meal.complexity, affordable: meal.affordability,
+          onSelectMeal: (Meal meal){
+            Navigator.of(context).push(
+                MaterialPageRoute(builder: (ctx) => MealDetailScreen(meal: meal)));
+          },)).toList(),
+        ),
       ),
     );
   }

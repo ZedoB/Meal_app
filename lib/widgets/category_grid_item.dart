@@ -36,8 +36,8 @@ class CategoryGridItem extends StatelessWidget {
           ),
           child: Center(
             child: Text(category.title,style: const TextStyle(
-              fontSize: 24,fontWeight: FontWeight.bold
-            ),),
+              fontSize: 24,fontWeight: FontWeight.bold,
+            ),textAlign: TextAlign.center,),
           ),
         ),
       ),

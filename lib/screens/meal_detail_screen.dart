@@ -22,29 +22,31 @@ class MealDetailScreen extends ConsumerWidget {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                 content: Text(added ? "Added" : "Removed")));
 
-    }, icon: isFav? Icon(Icons.star) : Icon(Icons.star_border),
+    }, icon: isFav? const Icon(Icons.star) : const Icon(Icons.star_border),
           color: Colors.amber,)
         ],
       ),
       body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Image.network(meal.imageUrl,height: 300,width: double.infinity,fit: BoxFit.cover,),
-            const SizedBox(height: 14,),
-            const Center(child: Text('Ingredients',style: TextStyle(color: Colors.red),)),
-            const SizedBox(height: 14,),
-            for(final i in meal.ingredients)
-              Text(i,style: const TextStyle(color: Colors.black),),
-            const SizedBox(height: 14,),
-            const Center(child: Text('Steps',style: TextStyle(color: Colors.red),)),
-            const SizedBox(height: 14,),
-            for(final s in meal.steps)
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                child: Text(s,textAlign: TextAlign.center,
-                  style: const TextStyle(color: Colors.black),),
-              ),
-          ],
+        child: Expanded(
+          child: Column(
+            children: [
+              Image.network(meal.imageUrl,height: 300,width: double.infinity,fit: BoxFit.cover,),
+              const SizedBox(height: 14,),
+              const Center(child: Text('Ingredients',style: TextStyle(color: Colors.red),)),
+              const SizedBox(height: 14,),
+              for(final i in meal.ingredients)
+                Text(i,style: const TextStyle(color: Colors.black),),
+              const SizedBox(height: 14,),
+              const Center(child: Text('Steps',style: TextStyle(color: Colors.red),)),
+              const SizedBox(height: 14,),
+              for(final s in meal.steps)
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                  child: Text(s,textAlign: TextAlign.center,
+                    style: const TextStyle(color: Colors.black),),
+                ),
+            ],
+          ),
         ),
       ),
     );
